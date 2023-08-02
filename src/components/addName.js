@@ -4,7 +4,7 @@ export function addName(newName, newNumber, persons, setNewName, setNewNumber, s
   return (event) => {
     let isUnique = true;
     event.preventDefault();
-
+    console.log(newName)
     const nameObject = {
       name: newName,
       number: newNumber,
@@ -16,7 +16,7 @@ export function addName(newName, newNumber, persons, setNewName, setNewNumber, s
         if (confirmReplace) {
           const findId = person.id;
           const changedNumber = { ...person, number: newNumber}
-          axios.put(`http://localhost:3001/api/persons/${findId}`, changedNumber).then(response => {
+          axios.put(`/api/persons/${findId}`, changedNumber).then(response => {
             console.log(response)
             setPersons(persons.map(person => person.name !== newName ? person : response.data))
           })
@@ -26,18 +26,21 @@ export function addName(newName, newNumber, persons, setNewName, setNewNumber, s
 
           })
         }
+        console.log('IT DOES IT HERE.')
         setNewName("");
         setNewNumber("");
         isUnique = false;
       }
     });
     if (isUnique === true) {
-      axios.post('http://localhost:3001/api/persons', nameObject).then(response => {
+      console.log("IT WORKS")
+      axios.post('/api/persons', nameObject).then(response => {
         setPersons(persons.concat(response.data.slice(-1)[0])); //COME BACK TO THIS... TEMP SOLUTION 
         setNewName("");
         setNewNumber("");
       })
       .catch(error =>{
+        console.log(nameObject)
         console.log(error.response.data)
       })
     }

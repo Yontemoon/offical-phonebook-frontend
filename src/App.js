@@ -15,7 +15,7 @@ const App = () => {
   useEffect(() => {
     console.log('effect');
     axios
-      .get('http://localhost:3001/api/persons') //IDK?
+      .get('/api/persons') //IDK?
       .then(response => {
         console.log('promise fulfilled')
         setPersons(response.data)
@@ -33,7 +33,7 @@ const App = () => {
   const deleteName = (specificPerson) => {
     const answer = window.confirm(`Are you sure you want to delete ${specificPerson.name}?`)
     if(answer) {
-      const url = `http://localhost:3001/api/persons/${specificPerson.id}`;
+      const url = `/api/persons/${specificPerson.id}`;
       const deleteName = persons.find(person => person.id === specificPerson.id)
       const changedPersons = {...deleteName }
 
